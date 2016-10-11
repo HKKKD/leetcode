@@ -1,25 +1,15 @@
 def lengthOfLongestSubstring(s):
-	if len(s) <= 0:
-		return 0
-	l = 0
-	r = l+1
-	length = 1
-	array = []
-	array.append(s[0])
-	while r < len(s):
-		if s[r] not in array:
-			array.append(s[r])
-			r += 1
-			if len(array) > length:
-				length = len(array)
+	last = list(-1 for _ in range(256))
+	result = 0
+	start = 0
+	for index, value in enumerate(s):
+		if last[ord(value)] == -1:
+			result = max(result, (index) - start + 1)
 		else:
-			if len(array) > length:
-				length = len(array)
-			l += 1
-			r = l+1
-			array = []
-			array.append(s[l])
-	print array
-	return length
-
+			result = max(result, (index-1) - start + 1)
+			for i in xrange(start,last[ord(value)]):
+				last[ord(s[i])] = -1
+			start = last[ord(value)] + 1
+		last[ord(value)] = index
+	return result
 print lengthOfLongestSubstring("abcabcbb")

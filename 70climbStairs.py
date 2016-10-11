@@ -2,7 +2,7 @@ import math
 def climbStairs(n):
 	if n % 2 == 0:
 		low = n/2
-		high = n	
+		high = n
 		sums = 0
 		l = list(2*x for x in xrange(low+1))
 		print l,low
